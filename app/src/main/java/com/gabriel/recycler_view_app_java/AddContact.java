@@ -23,12 +23,12 @@ public class AddContact extends AppCompatActivity {
 
         editContact = getIntent().getIntExtra("contactToEdit", -1);
 
-        nameEditText = (EditText) findViewById(R.id.nameEditText);
-        numberEditText = (EditText) findViewById(R.id.numberEditText);
-        addressEditText = (EditText) findViewById(R.id.addressEditText);
+        nameEditText = findViewById(R.id.nameEditText);
+        numberEditText = findViewById(R.id.numberEditText);
+        addressEditText = findViewById(R.id.addressEditText);
 
-        cancelButton = (Button) findViewById(R.id.cancelButton);
-        submitButton = (Button) findViewById(R.id.submitButton);
+        cancelButton = findViewById(R.id.cancelButton);
+        submitButton = findViewById(R.id.submitButton);
 
         if (editContact != -1) {
             nameEditText.setText(ContactList.GetInstance().getContactsData().get(editContact)[0]);
@@ -36,35 +36,29 @@ public class AddContact extends AppCompatActivity {
             addressEditText.setText(ContactList.GetInstance().getContactsData().get(editContact)[2]);
         }
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (nameEditText.getText().toString().equals("") || numberEditText.getText().toString().equals("") || addressEditText.getText().toString().equals("")) {
-                    EmptyFieldsAlert();
-                } else {
-                    SubmitContact();
-                }
+        submitButton.setOnClickListener((View v) -> {
+            if (nameEditText.getText().toString().equals("") || numberEditText.getText().toString().equals("") || addressEditText.getText().toString().equals("")) {
+                emptyFieldsAlert();
+            } else {
+                submitContact();
             }
         });
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CancelAction();
-            }
+        cancelButton.setOnClickListener((View v) -> {
+            cancelAction();
         });
     }
 
-    private void EmptyFieldsAlert(){
+    private void emptyFieldsAlert(){
         Toast.makeText(AddContact.this, "Empty field(s)", Toast.LENGTH_SHORT).show();
     }
 
-    private void CancelAction(){
+    private void cancelAction(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    private void SubmitContact(){
+    private void submitContact(){
         Toast.makeText(AddContact.this, "Contact submitted", Toast.LENGTH_SHORT).show();
 
 
